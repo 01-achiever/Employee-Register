@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+
+{%block content%}
+<div class="heading">
+ 
+</div> 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 heroicform">
+            <h2 class="heading"> Employee Form </h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ef}}
+                <input type="submit" class="btn btn-success mt-4" value="New employee">
+            </form>
+        </div>
+        <div class="col-md-7 employee_form">
+            <h2 class="employeeheading"> Employee Database </h2>
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for m in em %}
+                <tr>
+                    <td><b>{{m.id}}</b></td>
+                    <td><b>{{m.Name}}</b></td>
+                    <td><b>{{m.Position}}<b></td>
+                    <td><b>{{m.Phone}}<b></td>
+
+                    <td>
+                        <a href="{% url "update" m.id %}" class="btn btn-secondary btn-sm">Update</a>
+                        <form action="{% url "Delete" m.id %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                        </form>   
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock content%}
